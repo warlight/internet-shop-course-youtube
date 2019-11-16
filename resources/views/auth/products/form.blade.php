@@ -45,9 +45,15 @@
                     <label for="category_id" class="col-sm-2 col-form-label">Категория: </label>
                     <div class="col-sm-6">
                         <select name="category_id" id="category_id" class="form-control">
-                            <option value="1">Мобильные телефоны</option>
-                            <option value="2">Портативная техника</option>
-                            <option value="3">Бытовая техника</option>
+                            @foreach($categories as $category)
+                                <option value="{{ $category->id }}"
+                                @isset($product)
+                                    @if($product->category_id == $category->id)
+                                        selected
+                                        @endif
+                                    @endisset
+                                >{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

@@ -33,7 +33,7 @@
             </tr>
             <tr>
                 <td>Картинка</td>
-                <td><img src="http://laravel-diplom-1.rdavydov.ru/storage/categories/appliance.jpg"
+                <td><img src="{{ Storage::url($category->image) }}"
                          height="240px"></td>
             </tr>
             <tr>
