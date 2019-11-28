@@ -101,6 +101,14 @@ class ProductsTableSeeder extends Seeder
                 'category_id' => 3,
                 'image' => 'products/bosch.jpg',
             ],
+            [
+                'name' => 'Samsung Galaxy J6',
+                'code' => 'samsung_j6',
+                'description' => 'Современный телефон начального уровня',
+                'price' => '11980',
+                'category_id' => 1,
+                'image' => 'products/samsung_j6.jpg',
+            ],
         ]);
     }
 }
