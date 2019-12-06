@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function index(ProductsFilterRequest $request) {
-        $productsQuery = Product::query();
+        $productsQuery = Product::with('category');
 
         if ($request->filled('price_from')) {
             $productsQuery->where('price', '>=', $request->price_from);
