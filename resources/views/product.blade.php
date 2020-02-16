@@ -3,11 +3,11 @@
 @section('title', __('main.product'))
 
 @section('content')
-    <h1>{{ $product->name }}</h1>
+    <h1>{{ $product->__('name') }}</h1>
     <h2>{{ $product->category->name }}</h2>
     <p>@lang('product.price'): <b>{{ $product->price }} @lang('main.rub').</b></p>
     <img src="{{ Storage::url($product->image) }}">
-    <p>{{ $product->description }}</p>
+    <p>{{ $product->__('description') }}</p>
 
     @if($product->isAvailable())
         <form action="{{ route('basket-add', $product) }}" method="POST">
