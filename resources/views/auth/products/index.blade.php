@@ -21,10 +21,7 @@
                     Категория
                 </th>
                 <th>
-                    Цена
-                </th>
-                <th>
-                    Кол-во
+                    Кол-во товарных предложений
                 </th>
                 <th>
                     Действия
@@ -36,13 +33,14 @@
                     <td>{{ $product->code }}</td>
                     <td>{{ $product->name }}</td>
                     <td>{{ $product->category->name }}</td>
-                    <td>{{ $product->price }}</td>
-                    <td>{{ $product->count }}</td>
+                    <td></td>
                     <td>
                         <div class="btn-group" role="group">
                             <form action="{{ route('products.destroy', $product) }}" method="POST">
                                 <a class="btn btn-success" type="button"
                                    href="{{ route('products.show', $product) }}">Открыть</a>
+                                <a class="btn btn-success" type="button"
+                                   href="{{ route('skus.index', $product) }}">Skus</a>
                                 <a class="btn btn-warning" type="button"
                                    href="{{ route('products.edit', $product) }}">Редактировать</a>
                                 @csrf
