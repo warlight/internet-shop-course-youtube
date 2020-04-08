@@ -31,14 +31,6 @@ class Product extends Model
         return $this->belongsToMany(Property::class, 'property_product')->withTimestamps();
     }
 
-    public function getPriceForCount()
-    {
-        if (!is_null($this->pivot)) {
-            return $this->pivot->count * $this->price;
-        }
-        return $this->price;
-    }
-
     public function scopeByCode($query, $code)
     {
         return $query->where('code', $code);
@@ -72,11 +64,6 @@ class Product extends Model
     public function setRecommendAttribute($value)
     {
         $this->attributes['recommend'] = $value === 'on' ? 1 : 0;
-    }
-
-    public function isAvailable()
-    {
-        return !$this->trashed() && $this->count > 0;
     }
 
     public function isHit()

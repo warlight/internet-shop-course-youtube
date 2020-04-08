@@ -7,6 +7,7 @@ use App\Http\Requests\SubscriptionRequest;
 use App\Models\Category;
 use App\Models\Currency;
 use App\Models\Product;
+use App\Models\Sku;
 use App\Models\Subscription;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -15,25 +16,27 @@ class MainController extends Controller
 {
     public function index(ProductsFilterRequest $request)
     {
-        $productsQuery = Product::with('category');
+        $skusQuery = Sku::with(['product', 'product.category']);
 
         if ($request->filled('price_from')) {
-            $productsQuery->where('price', '>=', $request->price_from);
+            $skusQuery->where('price', '>=', $request->price_from);
         }
 
         if ($request->filled('price_to')) {
-            $productsQuery->where('price', '<=', $request->price_to);
+            $skusQuery->where('price', '<=', $request->price_to);
         }
 
         foreach (['hit', 'new', 'recommend'] as $field) {
             if ($request->has($field)) {
-                $productsQuery->$field();
+                $skusQuery->whereHas('product', function ($query) use ($field) {
+                    $query->$field();
+                });
             }
         }
 
-        $products = $productsQuery->paginate(6)->withPath("?".$request->getQueryString());
+        $skus = $skusQuery->paginate(6)->withPath("?".$request->getQueryString());
 
-        return view('index', compact('products'));
+        return view('index', compact('skus'));
     }
 
     public function categories()
@@ -47,17 +50,24 @@ class MainController extends Controller
         return view('category', compact('category'));
     }
 
-    public function product($category, $productCode)
+    public function sku($categoryCode, $productCode, Sku $skus)
     {
-        $product = Product::withTrashed()->byCode($productCode)->firstOrFail();
-        return view('product', compact('product'));
+        if ($skus->product->code != $productCode) {
+            abort(404, 'Product not found');
+        }
+
+        if ($skus->product->category->code != $categoryCode) {
+            abort(404, 'Category not found');
+        }
+
+        return view('product', compact('skus'));
     }
 
-    public function subscribe(SubscriptionRequest $request, Product $product)
+    public function subscribe(SubscriptionRequest $request, Sku $skus)
     {
         Subscription::create([
             'email' => $request->email,
-            'product_id' => $product->id,
+            'sku_id' => $skus->id,
         ]);
 
         return redirect()->back()->with('success', __('product.we_will_update'));
