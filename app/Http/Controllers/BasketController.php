@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Classes\Basket;
 use App\Models\Sku;
+use App\Classes\Basket;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\BasketConfirmRequest;
 
 class BasketController extends Controller
 {
@@ -15,7 +16,7 @@ class BasketController extends Controller
         return view('basket', compact('order'));
     }
 
-    public function basketConfirm(Request $request)
+    public function basketConfirm(BasketConfirmRequest $request)
     {
         $email = Auth::check() ? Auth::user()->email : $request->email;
         if ((new Basket())->saveOrder($request->name, $request->phone, $email)) {
