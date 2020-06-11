@@ -15,7 +15,10 @@
                         <div class="form-group">
                             <label for="name" class="control-label col-lg-offset-3 col-lg-2">@lang('basket.data.name'): </label>
                             <div class="col-lg-4">
-                                <input type="text" name="name" id="name" value="" class="form-control">
+                                @error('name')
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                <input type="text" name="name" id="name" value="{{ old('name') }}" class="form-control">
                             </div>
                         </div>
                         <br>
@@ -23,16 +26,25 @@
                         <div class="form-group">
                             <label for="phone" class="control-label col-lg-offset-3 col-lg-2">@lang('basket.data.phone'): </label>
                             <div class="col-lg-4">
-                                <input type="text" name="phone" id="phone" value="" class="form-control">
+                                @error('phone')
+                                    </br>
+                                    <div class="alert alert-danger">{{ $message }}</div>
+                                @enderror
+                                <input type="text" name="phone" id="phone" value="{{ old('phone') }}" class="form-control">
                             </div>
+                           
                         </div>
                         <br>
                         <br>
                         @guest
                             <div class="form-group">
                                 <label for="name" class="control-label col-lg-offset-3 col-lg-2">@lang('basket.data.email'): </label>
-                                <div class="col-lg-4">
-                                    <input type="text" name="email" id="email" value="" class="form-control">
+                                <div class="col-lg-4">                                
+                                    @error('email')
+                                        </br>
+                                        <div class="alert alert-danger">{{ $message }}</div>
+                                    @enderror
+                                    <input type="text" name="email" id="email" value="{{ old('email') }}" class="form-control">
                                 </div>
                             </div>
                         @endguest
