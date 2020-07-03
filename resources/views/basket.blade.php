@@ -59,9 +59,9 @@
                 <div class="form-inline pull-right">
                     <form method="POST" action="{{ route('set-coupon') }}">
                         @csrf
-                        <label for="coupon">Добавить купон:</label>
+                        <label for="coupon">@lang('basket.coupon.add_coupon'):</label>
                         <input class="form-control" type="text" name="coupon">
-                        <button type="submit" class="btn btn-success">Применить</button>
+                        <button type="submit" class="btn btn-success">@lang('basket.coupon.apply')</button>
                     </form>
                 </div>
             </div>
@@ -69,7 +69,7 @@
             <div class="alert alert-danger">{{ $message }}</div>
             @enderror
         @else
-            <div>Вы используете купон {{ $order->coupon->code }}</div>
+            <div>@lang('basket.coupon.your_coupon') {{ $order->coupon->code }}</div>
         @endif
         <br>
         <div class="row">

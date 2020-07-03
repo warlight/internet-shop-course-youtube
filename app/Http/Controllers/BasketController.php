@@ -22,7 +22,7 @@ class BasketController extends Controller
         $basket = new Basket();
         if ($basket->getOrder()->hasCoupon() && !$basket->getOrder()->coupon->availableForUse()) {
             $basket->clearCoupon();
-            session()->flash('warning', 'Купон не доступен для использования');
+            session()->flash('warning', __('basket.coupon.not_available'));
             return redirect()->route('basket');
         }
         $email = Auth::check() ? Auth::user()->email : $request->email;
@@ -74,9 +74,9 @@ class BasketController extends Controller
 
         if ($coupon->availableForUse()) {
             (new Basket())->setCoupon($coupon);
-            session()->flash('success', 'Купон был добавлен к заказу');
+            session()->flash('success', __('basket.coupon.coupon_added'));
         } else {
-            session()->flash('warning', 'Купон не может быть использован');
+            session()->flash('warning', __('basket.coupon.not_available'));
         }
 
         return redirect()->route('basket');

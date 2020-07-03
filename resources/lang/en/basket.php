@@ -25,4 +25,13 @@ return [
         'email' => 'Email',
         'phone' => 'Phone number',
     ],
+
+    'coupon' => [
+        'apply' => 'Apply',
+        'add_coupon' => 'Add coupon',
+        'your_coupon' => 'You are using at coupon',
+        'coupon_added' => 'Your coupon was added',
+        'not_available' => 'Coupon is not available for use',
+        'not_exists' => 'Coupon doesn\'t exists',
+    ]
 ];
